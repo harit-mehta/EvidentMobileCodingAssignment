@@ -44,14 +44,17 @@ public class WeatherDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_weather_details);
         initUIWidgets();
         processIntent(getIntent());
     }
 
     private void processIntent(Intent incomingIntent) {
+        Log.d(TAG, "processIntent");
         String requestedDate = incomingIntent.getStringExtra(EXTRA_KEY_REQUESTED_DATE);
         if (requestedDate != null && !requestedDate.equals("")) {
+            Log.d(TAG, "request date :" + requestedDate);
             RESTCoreApi restCoreApi = RESTCoreApi.getInstance();
             restCoreApi.getWeatherHistory(requestedDate, new RESTCoreApi.GetHistoryApiListener() {
                 ProgressDialog pd = null;
@@ -98,6 +101,8 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                     }
                 }
             });
+        } else {
+            Log.d(TAG, "Request date null");
         }
     }
 

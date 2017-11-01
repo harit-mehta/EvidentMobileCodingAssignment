@@ -21,18 +21,12 @@ import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels
 
 public class HistoryObservationsAdapter extends BaseAdapter {
 
-    private static final String TAG = "ObservationsAdapter";
-
     private ArrayList<HistoryObservationElement> mObservationsList;
     private LayoutInflater layoutInflater;
-
-    private Context context;
 
     public HistoryObservationsAdapter(Context context, ArrayList<HistoryObservationElement> mObservationsList) {
         this.mObservationsList = mObservationsList;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        Log.d(TAG, "Array List Size : " + mObservationsList.size());
-        this.context = context;
     }
 
     @Override
@@ -76,10 +70,6 @@ public class HistoryObservationsAdapter extends BaseAdapter {
         viewHolder.tvFog.setText("Fog : " + observation.getFog());
         viewHolder.tvRain.setText("Rain : " + observation.getRain());
 
-//        TextView tv = new TextView(context);
-//        tv.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//        tv.setTextColor(Color.WHITE);
-//        tv.setText("Test");
         return view;
     }
 
