@@ -3,30 +3,148 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spHistoryDetailsOptions"
+    <RadioGroup
+        android:id="@+id/rgHistoryDetailsOptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbDailySummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Daily Summary"/>
+
+        <RadioButton
+            android:id="@+id/rbObservations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Observations"/>
+
+    </RadioGroup>
 
     <LinearLayout
         android:id="@+id/llHistoryDetails"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/spHistoryDetailsOptions"
+        android:layout_below="@+id/rgHistoryDetailsOptions"
         android:layout_marginTop="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="5dp">
 
-        <TextView
-            android:id="@+id/tvDailySummary"
+        <LinearLayout
+            android:id="@+id/llHistorySummary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tvDateSummary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="16sp"/>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvSnowSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/snow"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMaxTempmSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/max_tempm"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMaxTempiSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/max_tempi"
+                        android:textColor="@color/dim_grey"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvRainSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/rain"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMinTempmSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/min_tempm"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMinTempiSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/min_tempi"
+                        android:textColor="@color/dim_grey"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tvFogSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fog"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMeanTempmSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mean_tempm"
+                        android:textColor="@color/dim_grey"/>
+
+                    <TextView
+                        android:id="@+id/tvMeanTempiSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mean_tempi"
+                        android:textColor="@color/dim_grey"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lvHistoryObservations"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:visibility="gone"/>
     </LinearLayout>
 
 </RelativeLayout>

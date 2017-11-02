@@ -11,7 +11,7 @@ import retrofit2.Response;
 
 import static org.junit.Assert.assertTrue;
 
-public class ExampleUnitTest {
+public class UnitTestSample {
 
     @Test
     public void retrofit_api_call_test() {

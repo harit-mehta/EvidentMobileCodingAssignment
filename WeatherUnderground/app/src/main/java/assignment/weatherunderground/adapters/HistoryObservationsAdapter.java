@@ -1,7 +1,6 @@
 package assignment.weatherunderground.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import assignment.weatherunderground.R;
 import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels.HistoryObservationElement;
@@ -22,11 +22,13 @@ import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels
 public class HistoryObservationsAdapter extends BaseAdapter {
 
     private ArrayList<HistoryObservationElement> mObservationsList;
-    private LayoutInflater layoutInflater;
+    private LayoutInflater mLayoutInflater;
+    private Context mContext;
 
     public HistoryObservationsAdapter(Context context, ArrayList<HistoryObservationElement> mObservationsList) {
         this.mObservationsList = mObservationsList;
-        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mContext = context;
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -54,7 +56,7 @@ public class HistoryObservationsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.observation_cell, viewGroup, false);
+            view = mLayoutInflater.inflate(R.layout.observation_cell, viewGroup, false);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {
@@ -62,14 +64,28 @@ public class HistoryObservationsAdapter extends BaseAdapter {
         }
 
         HistoryObservationElement observation = mObservationsList.get(i);
+        viewHolder.tvDate.setText(observation.getDate().getPretty());
 
-        viewHolder.tvTempi.setText("Tempi : " + observation.getTempi());
-        viewHolder.tvDate.setText("Date : " + observation.getDate().getPretty());
-        viewHolder.tvTempm.setText("Tempm : " + observation.getTempm());
-        viewHolder.tvSnow.setText("Snow : " + observation.getSnow());
-        viewHolder.tvFog.setText("Fog : " + observation.getFog());
-        viewHolder.tvRain.setText("Rain : " + observation.getRain());
-
+        viewHolder.tvTempi.setText(String.format(Locale.getDefault(),
+                                                 "%s : %s",
+                                                 mContext.getResources().getString(R.string.tempi),
+                                                 observation.getTempi()));
+        viewHolder.tvTempm.setText(String.format(Locale.getDefault(),
+                                                 "%s : %s",
+                                                 mContext.getResources().getString(R.string.tempm),
+                                                 observation.getTempm()));
+        viewHolder.tvSnow.setText(String.format(Locale.getDefault(),
+                                                "%s : %s",
+                                                mContext.getResources().getString(R.string.snow),
+                                                observation.getSnow()));
+        viewHolder.tvFog.setText(String.format(Locale.getDefault(),
+                                               "%s : %s",
+                                               mContext.getResources().getString(R.string.fog),
+                                               observation.getFog()));
+        viewHolder.tvRain.setText(String.format(Locale.getDefault(),
+                                                "%s : %s",
+                                                mContext.getResources().getString(R.string.rain),
+                                                observation.getRain()));
         return view;
     }
 

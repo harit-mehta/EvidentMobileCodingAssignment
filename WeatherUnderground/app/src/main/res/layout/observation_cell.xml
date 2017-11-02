@@ -2,41 +2,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:padding="5dp">
 
     <TextView
         android:id="@+id/tvDateObservationCell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:textColor="@color/textColorPrimary"
+        android:textSize="16sp"/>
 
-    <TextView
-        android:id="@+id/tvFogObservationCell"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:stretchColumns="*">
 
-    <TextView
-        android:id="@+id/tvRainObservationCell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvSnowObservationCell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
+            <TextView
+                android:id="@+id/tvSnowObservationCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/snow"
+                android:textColor="@color/dim_grey"/>
 
-    <TextView
-        android:id="@+id/tvTempmObservationCell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
+            <TextView
+                android:id="@+id/tvTempmObservationCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tempm"
+                android:textColor="@color/dim_grey"/>
 
-    <TextView
-        android:id="@+id/tvTempiObservationCell"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvRainObservationCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/rain"
+                android:textColor="@color/dim_grey"/>
+
+            <TextView
+                android:id="@+id/tvTempiObservationCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tempi"
+                android:textColor="@color/dim_grey"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tvFogObservationCell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fog"
+                android:textColor="@color/dim_grey"/>
+        </TableRow>
+
+    </TableLayout>
+
 </LinearLayout>

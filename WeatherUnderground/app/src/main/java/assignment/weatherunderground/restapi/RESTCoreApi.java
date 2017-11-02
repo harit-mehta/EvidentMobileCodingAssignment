@@ -50,15 +50,15 @@ public class RESTCoreApi {
             public void onResponse(@NonNull Call<HistoryResponseModel> call,
                                    @NonNull Response<HistoryResponseModel> response) {
                 HistoryResponseModel historyResponseModel = null;
-                String errorMessgae = "";
+                String errorMessage = "";
                 if (response.isSuccessful() && response.body() != null) {
                     historyResponseModel = response.body();
                 } else {
-                    errorMessgae = "Error fetching history.";
+                    errorMessage = "Error fetching history.";
                 }
 
                 if (getHistoryApiListener != null) {
-                    getHistoryApiListener.afterCall(historyResponseModel, errorMessgae);
+                    getHistoryApiListener.afterCall(historyResponseModel, errorMessage);
                 }
             }
 

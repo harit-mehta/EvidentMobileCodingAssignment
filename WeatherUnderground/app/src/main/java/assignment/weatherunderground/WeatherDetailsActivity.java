@@ -4,14 +4,14 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,11 +35,9 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = "WeatherDetailsActivity";
 
-    private Spinner spHistoryDetailsOptions;
     private ListView lvObservations;
-    private TextView tvDailySummary;
-
-    private String[] historyDetailsOptions = new String[]{"Daily Summary", "Observations"};
+    private RadioGroup rgHistoryOptions;
+    private LinearLayout llSummary;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +82,7 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                         Log.d(TAG, "History details:");
                         HistoryElement historyElement = historyResponseModel.getHistory();
                         Log.d(TAG, historyElement.getDate().toString());
-                        updateUIElements(historyElement.getDailysummary(), historyElement.getObservations());
+                        loadWeatherHistory(historyElement.getDailysummary(), historyElement.getObservations());
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(WeatherDetailsActivity.this);
                         builder.setTitle("Error");
@@ -106,70 +104,58 @@ public class WeatherDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void updateUIElements(ArrayList<HistoryDailySummaryElement> historyDailySummaryElement,
-                                  ArrayList<HistoryObservationElement> historyObservationElement) {
+    private void loadWeatherHistory(ArrayList<HistoryDailySummaryElement> historyDailySummaryElement,
+                                    ArrayList<HistoryObservationElement> historyObservationElement) {
         HistoryObservationsAdapter historyObservationsAdapter = new HistoryObservationsAdapter(WeatherDetailsActivity.this, historyObservationElement);
         lvObservations.setAdapter(historyObservationsAdapter);
 
         if (historyDailySummaryElement != null && historyDailySummaryElement.size() > 0) {
             HistoryDailySummaryElement dailySummary = historyDailySummaryElement.get(0);
-            tvDailySummary.setText(getDailySummaryString(dailySummary));
+            loadSummaryDetails(dailySummary);
         }
-
-        spHistoryDetailsOptions.setSelection(0);
     }
 
-    private String getDailySummaryString(HistoryDailySummaryElement dailySummary) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Date:");
-        sb.append(dailySummary.getDate().getPretty());
-        sb.append("\nFog:");
-        sb.append(dailySummary.getFog());
-        sb.append("\nRain:");
-        sb.append(dailySummary.getRain());
-        sb.append("\nSnow:");
-        sb.append(dailySummary.getSnow());
-        sb.append("\nMaxTempi:");
-        sb.append(dailySummary.getMaxtempi());
-        sb.append("\nMaxTempm:");
-        sb.append(dailySummary.getMaxtempm());
-        sb.append("\nMeanTempi:");
-        sb.append(dailySummary.getMeantempi());
-        sb.append("\nMeanTempm:");
-        sb.append(dailySummary.getMeantempm());
-        sb.append("\nMinTempi:");
-        sb.append(dailySummary.getMintempi());
-        sb.append("\nMinTempm:");
-        sb.append(dailySummary.getMintempm());
+    private void loadSummaryDetails(HistoryDailySummaryElement dailySummary) {
 
-        return sb.toString();
+        TextView tvDate = (TextView) findViewById(R.id.tvDateSummary);
+        TextView tvFog = (TextView) findViewById(R.id.tvFogSummary);
+        TextView tvRain = (TextView) findViewById(R.id.tvRainSummary);
+        TextView tvSnow = (TextView) findViewById(R.id.tvSnowSummary);
+        TextView tvMaxTempi = (TextView) findViewById(R.id.tvMaxTempiSummary);
+        TextView tvMaxTempm = (TextView) findViewById(R.id.tvMaxTempmSummary);
+        TextView tvMeanTempi = (TextView) findViewById(R.id.tvMeanTempiSummary);
+        TextView tvMeanTempm = (TextView) findViewById(R.id.tvMeanTempmSummary);
+        TextView tvMinTempi = (TextView) findViewById(R.id.tvMinTempiSummary);
+        TextView tvMinTempm = (TextView) findViewById(R.id.tvMinTempmSummary);
+
+        tvDate.setText(dailySummary.getDate().getPretty());
+        tvFog.append(" : " + dailySummary.getFog());
+        tvRain.append(" : " + dailySummary.getRain());
+        tvSnow.append(" : " + dailySummary.getSnow());
+        tvMaxTempi.append(" : " + dailySummary.getMaxtempi());
+        tvMaxTempm.append(" : " + dailySummary.getMaxtempm());
+        tvMeanTempi.append(" : " + dailySummary.getMeantempi());
+        tvMeanTempm.append(" : " + dailySummary.getMeantempm());
+        tvMinTempi.append(" : " + dailySummary.getMintempi());
+        tvMinTempm.append(" : " + dailySummary.getMintempm());
     }
 
     private void initUIWidgets() {
-        spHistoryDetailsOptions = (Spinner) findViewById(R.id.spHistoryDetailsOptions);
-        spHistoryDetailsOptions.setAdapter(new ArrayAdapter<String>(WeatherDetailsActivity.this,
-                                                                    android.R.layout.simple_spinner_item,
-                                                                    historyDetailsOptions));
-        spHistoryDetailsOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        rgHistoryOptions = (RadioGroup) findViewById(R.id.rgHistoryDetailsOptions);
+        rgHistoryOptions.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                if (historyDetailsOptions[position].equals("Daily Summary")) {
-                    tvDailySummary.setVisibility(View.VISIBLE);
+            public void onCheckedChanged(RadioGroup radioGroup, @IdRes int checkedId) {
+                if (checkedId == R.id.rbDailySummary) {
+                    llSummary.setVisibility(View.VISIBLE);
                     lvObservations.setVisibility(View.GONE);
-                } else {
-                    tvDailySummary.setVisibility(View.GONE);
+                } else if (checkedId == R.id.rbObservations) {
+                    llSummary.setVisibility(View.GONE);
                     lvObservations.setVisibility(View.VISIBLE);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
 
-
         lvObservations = (ListView) findViewById(R.id.lvHistoryObservations);
-        tvDailySummary = (TextView) findViewById(R.id.tvDailySummary);
+        llSummary = (LinearLayout) findViewById(R.id.llHistorySummary);
     }
 }
