@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WeatherUnderground</string>
+    <string name="welcome_msg_and_instruction">Welcome to Weather Underground. Please select a date to
+        review the weather history.</string>
+    <string name="btn_get_history">Get History</string>
+
+    <!--Summary and Observations Labels-->
+    <string name="snow">Snow</string>
+    <string name="fog">Fog</string>
+    <string name="rain">Rain</string>
+    <string name="tempm">Tempm</string>
+    <string name="tempi">Tempi</string>
+    <string name="max_tempm">MaxTempm</string>
+    <string name="min_tempm">MinTempm</string>
+    <string name="mean_tempm">MeanTempm</string>
+    <string name="max_tempi">MaxTempi</string>
+    <string name="min_tempi">MinTempi</string>
+    <string name="mean_tempi">MeanTempi</string>
+
+</resources>
