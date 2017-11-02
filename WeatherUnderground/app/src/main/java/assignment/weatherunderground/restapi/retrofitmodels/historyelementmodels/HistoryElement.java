@@ -4,12 +4,6 @@ import java.util.ArrayList;
 
 import assignment.weatherunderground.restapi.retrofitmodels.DateElement;
 
-/**
- HistoryElement
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class HistoryElement {
     private DateElement date;
     private ArrayList<HistoryDailySummaryElement> dailysummary;

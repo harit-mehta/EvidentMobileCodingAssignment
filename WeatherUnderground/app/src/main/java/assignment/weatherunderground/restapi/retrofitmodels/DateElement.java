@@ -1,11 +1,5 @@
 package assignment.weatherunderground.restapi.retrofitmodels;
 
-/**
- DateElement
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class DateElement {
     private String pretty;
     private String hour;

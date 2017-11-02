@@ -9,12 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-/**
- RetrofitHelper
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class RetrofitHelper {
 
     private static RetrofitHelper mInstance = null;

@@ -1,11 +1,5 @@
 package assignment.weatherunderground.restapi.retrofitmodels.responseelementmodels;
 
-/**
- ResponseElement
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class ResponseElement {
     private String version;
     private String termsofService;

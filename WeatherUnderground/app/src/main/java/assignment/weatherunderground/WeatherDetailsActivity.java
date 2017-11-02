@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,17 +22,9 @@ import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels
 import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels.HistoryElement;
 import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels.HistoryObservationElement;
 
-/**
- WeatherDetailsActivity
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class WeatherDetailsActivity extends AppCompatActivity {
 
     static final String EXTRA_KEY_REQUESTED_DATE = "extraKeyRequestedDate";
-
-    private static final String TAG = "WeatherDetailsActivity";
 
     private ListView lvObservations;
     private RadioGroup rgHistoryOptions;
@@ -42,17 +33,14 @@ public class WeatherDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_weather_details);
         initUIWidgets();
         processIntent(getIntent());
     }
 
     private void processIntent(Intent incomingIntent) {
-        Log.d(TAG, "processIntent");
         String requestedDate = incomingIntent.getStringExtra(EXTRA_KEY_REQUESTED_DATE);
         if (requestedDate != null && !requestedDate.equals("")) {
-            Log.d(TAG, "request date :" + requestedDate);
             RESTCoreApi restCoreApi = RESTCoreApi.getInstance();
             restCoreApi.getWeatherHistory(requestedDate, new RESTCoreApi.GetHistoryApiListener() {
                 ProgressDialog pd = null;
@@ -77,30 +65,22 @@ public class WeatherDetailsActivity extends AppCompatActivity {
                     }
 
                     if (historyResponseModel != null) {
-                        Log.d(TAG, "History response:");
-                        Log.d(TAG, historyResponseModel.getResponse().toString());
-                        Log.d(TAG, "History details:");
                         HistoryElement historyElement = historyResponseModel.getHistory();
-                        Log.d(TAG, historyElement.getDate().toString());
-                        loadWeatherHistory(historyElement.getDailysummary(), historyElement.getObservations());
+                        if (historyElement.getDailysummary() != null
+                                && historyElement.getDailysummary().size() > 0
+                                && historyElement.getObservations() != null
+                                && historyElement.getObservations().size() > 0) {
+                            loadWeatherHistory(historyElement.getDailysummary(), historyElement.getObservations());
+                        } else {
+                            showNoHistoryAvailableDialog();
+                        }
                     } else {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(WeatherDetailsActivity.this);
-                        builder.setTitle("Error");
-                        builder.setMessage(error + "Please try again.");
-                        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                WeatherDetailsActivity.this.finish();
-                            }
-                        });
-                        builder.setCancelable(false);
-                        builder.show();
+                        showErrorDialog(error);
                     }
                 }
             });
         } else {
-            Log.d(TAG, "Request date null");
+            showErrorDialog("Could not retrieve the selected date.");
         }
     }
 
@@ -157,5 +137,36 @@ public class WeatherDetailsActivity extends AppCompatActivity {
 
         lvObservations = (ListView) findViewById(R.id.lvHistoryObservations);
         llSummary = (LinearLayout) findViewById(R.id.llHistorySummary);
+    }
+
+    private void showNoHistoryAvailableDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WeatherDetailsActivity.this);
+        builder.setTitle("History Not Available");
+        builder.setMessage("Weather history for the requested date is not available. Please try again with a " +
+                                   "different date.");
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                WeatherDetailsActivity.this.finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
+    }
+
+    private void showErrorDialog(String error) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(WeatherDetailsActivity.this);
+        builder.setTitle("Error");
+        builder.setMessage(error + "Please try again.");
+        builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+                WeatherDetailsActivity.this.finish();
+            }
+        });
+        builder.setCancelable(false);
+        builder.show();
     }
 }

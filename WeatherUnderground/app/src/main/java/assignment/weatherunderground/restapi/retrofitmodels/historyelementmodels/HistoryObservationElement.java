@@ -2,12 +2,6 @@ package assignment.weatherunderground.restapi.retrofitmodels.historyelementmodel
 
 import assignment.weatherunderground.restapi.retrofitmodels.DateElement;
 
-/**
- HistoryObservationElement
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class HistoryObservationElement {
     private DateElement date;
     private String fog;

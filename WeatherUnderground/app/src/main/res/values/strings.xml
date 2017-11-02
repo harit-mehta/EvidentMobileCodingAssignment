@@ -2,7 +2,7 @@
     <string name="app_name">WeatherUnderground</string>
     <string name="welcome_msg_and_instruction">Welcome to Weather Underground. Please select a date to
         review the weather history.</string>
-    <string name="btn_get_history">Get Weather History</string>
+    <string name="btn_get_history">Get History</string>
 
     <!--Summary and Observations Labels-->
     <string name="snow">Snow</string>

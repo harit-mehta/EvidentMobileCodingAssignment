@@ -3,7 +3,6 @@ package assignment.weatherunderground;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -12,8 +11,6 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private static final String TAG = "MainActivity";
 
     private Button btnGetHistory;
     private DatePicker datePicker;
@@ -47,7 +44,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (view.getId() == R.id.btnGetHistory) {
             String selectedDate = formatSelectedDate();
-            Log.d(TAG, "Selected Date : " + selectedDate);
             Intent intent = new Intent(MainActivity.this, WeatherDetailsActivity.class);
             intent.putExtra(WeatherDetailsActivity.EXTRA_KEY_REQUESTED_DATE, selectedDate);
             startActivity(intent);

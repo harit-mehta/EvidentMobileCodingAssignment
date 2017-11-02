@@ -7,12 +7,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- RESTCoreApi
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class RESTCoreApi {
 
     public interface GetHistoryApiListener {

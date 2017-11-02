@@ -1,11 +1,5 @@
 package assignment.weatherunderground.restapi.retrofitmodels.responseelementmodels;
 
-/**
- ResponseFeatureElement
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class ResponseFeatureElement {
     private Integer history;
 

@@ -25,7 +25,8 @@ public class UnitTestSample {
             assertTrue("History not available",
                        response.isSuccessful()
                                && historyResponseModel != null
-                               && historyResponseModel.getHistory().getObservations().size() > 0);
+                               && historyResponseModel.getHistory().getObservations().size() > 0
+                               && historyResponseModel.getHistory().getDailysummary().size() > 0);
         } catch (IOException e) {
             e.printStackTrace();
         }

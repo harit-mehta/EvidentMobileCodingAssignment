@@ -3,12 +3,6 @@ package assignment.weatherunderground.restapi.retrofitmodels;
 import assignment.weatherunderground.restapi.retrofitmodels.historyelementmodels.HistoryElement;
 import assignment.weatherunderground.restapi.retrofitmodels.responseelementmodels.ResponseElement;
 
-/**
- HistoryResponseModel
- <p>
- Created by hmehta on 10/29/17.
- */
-
 public class HistoryResponseModel {
     private ResponseElement response;
     private HistoryElement history;
